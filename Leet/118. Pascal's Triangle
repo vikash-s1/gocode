@@ -16,6 +16,7 @@ Constraints:
 1 <= numRows <= 30
 */
 
+My language
 /*
 Initialize result slice: Create a 2D slice with numRows rows
 For each row i:
@@ -43,3 +44,118 @@ func generate(numRows int) [][]int {
     
     return result
 }
+
+C++
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> result(numRows);
+        
+        for (int i = 0; i < numRows; i++) {
+            // Each row has i+1 elements
+            result[i].resize(i + 1);
+            
+            // First and last elements are always 1
+            result[i][0] = 1;
+            result[i][i] = 1;
+            
+            // Fill in the middle elements
+            for (int j = 1; j < i; j++) {
+                result[i][j] = result[i-1][j-1] + result[i-1][j];
+            }
+        }
+        
+        return result;
+    }
+};
+
+
+Other language
+
+```
+import java.util.*;
+
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> result = new ArrayList<>();
+        
+        for (int i = 0; i < numRows; i++) {
+            // Each row has i+1 elements
+            List<Integer> row = new ArrayList<>();
+            
+            // First and last elements are always 1
+            row.add(1);
+            
+            // Fill in the middle elements
+            for (int j = 1; j < i; j++) {
+                int sum = result.get(i-1).get(j-1) + result.get(i-1).get(j);
+                row.add(sum);
+            }
+            
+            // Add last element (1) if row has more than 1 element
+            if (i > 0) {
+                row.add(1);
+            }
+            
+            result.add(row);
+        }
+        
+        return result;
+    }
+}
+```
+
+```
+/**
+ * @param {number} numRows
+ * @return {number[][]}
+ */
+var generate = function(numRows) {
+    const result = [];
+    
+    for (let i = 0; i < numRows; i++) {
+        // Each row has i+1 elements
+        const row = new Array(i + 1);
+        
+        // First and last elements are always 1
+        row[0] = 1;
+        row[i] = 1;
+        
+        // Fill in the middle elements
+        for (let j = 1; j < i; j++) {
+            row[j] = result[i-1][j-1] + result[i-1][j];
+        }
+        
+        result.push(row);
+    }
+    
+    return result;
+};
+```
+
+```
+from typing import List
+
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        result = []
+        
+        for i in range(numRows):
+            # Each row has i+1 elements
+            row = [0] * (i + 1)
+            
+            # First and last elements are always 1
+            row[0] = 1
+            row[i] = 1
+            
+            # Fill in the middle elements
+            for j in range(1, i):
+                row[j] = result[i-1][j-1] + result[i-1][j]
+            
+            result.append(row)
+        
+        return result
+```
+
+
+
