@@ -1,0 +1,45 @@
+https://leetcode.com/problems/pascals-triangle/description/?envType=daily-question&envId=2025-08-01
+/* 
+Given an integer numRows, return the first numRows of Pascal's triangle.
+
+In Pascal's triangle, each number is the sum of the two numbers directly above it as shown:
+
+Example 1:
+Input: numRows = 5
+Output: [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
+
+Example 2:
+Input: numRows = 1
+Output: [[1]]
+ 
+Constraints:
+1 <= numRows <= 30
+*/
+
+/*
+Initialize result slice: Create a 2D slice with numRows rows
+For each row i:
+Create a slice with i+1 elements (row 0 has 1 element, row 1 has 2, etc.)
+Set first and last elements to 1
+Calculate middle elements as the sum of the two elements above them from the previous row
+*/
+
+func generate(numRows int) [][]int {
+    result := make([][]int, numRows)
+    
+    for i := 0; i < numRows; i++ {
+        // Each row has i+1 elements
+        result[i] = make([]int, i+1)
+        
+        // First and last elements are always 1
+        result[i][0] = 1
+        result[i][i] = 1
+        
+        // Fill in the middle elements
+        for j := 1; j < i; j++ {
+            result[i][j] = result[i-1][j-1] + result[i-1][j]
+        }
+    }
+    
+    return result
+}
